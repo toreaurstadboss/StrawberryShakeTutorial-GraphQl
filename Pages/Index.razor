@@ -1,0 +1,28 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h3 class="card card-body bg-light">Strawberry Shake - testing out GraphQL against a remote GraphQl backend (Crypto-Api workshop at Chillicream</h3>
+
+<p>The time is:
+    @DateTime.Now
+</p>
+
+
+<b>Here are some data </b>
+
+
+<UseGetAssets Strategy="ExecutionStrategy.CacheFirst">
+    <ChildContent Context="result">      
+        @if (result.Assets?.Nodes is not null) {
+            @foreach (var asset in result.Assets.Nodes) {
+                Console.WriteLine("The asset looks like this: " + JsonSerializer.Serialize(@asset.Price));
+                <p>@asset.Name @asset.Price.LastPrice</p>
+            }
+        }
+        
+    </ChildContent>
+    <LoadingContent>
+        Loading...
+    </LoadingContent>
+</UseGetAssets>
